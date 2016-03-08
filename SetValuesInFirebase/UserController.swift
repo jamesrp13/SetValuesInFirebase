@@ -43,4 +43,10 @@ class UserController {
         }
     }
     
+    static func createUser(username: String, completion: (user: User?) -> Void) {
+        var user = User(username: username)
+        user.save()
+        completion(user: user)
+    }
+    
 }

@@ -14,17 +14,15 @@ class Conversation: FirebaseType {
     let kUsers: String = "users"
     
     let name: String
-    var usersIDs: [String] = []
+    var userIDs: [String] = []
     var users: [User] = []
     var identifier: String?
     var endpoint: String {
-        // TODO: - return endpoint for conversations
-        return ""
+        return "conversations"
     }
     
     var jsonValue: [String: AnyObject] {
-        //TODO: - create dictionary that will be stored in firebase
-        return [:]
+        return [kName: name, kUsers: userIDs]
     }
     
     init(name: String, users: [User]) {
@@ -36,7 +34,7 @@ class Conversation: FirebaseType {
                 identifiers.append(identifier)
             }
         }
-        self.usersIDs = identifiers
+        self.userIDs = identifiers
     }
     
     required init?(json: [String: AnyObject], identifier: String) {
@@ -47,7 +45,7 @@ class Conversation: FirebaseType {
         self.name = name
         self.identifier = identifier
         if let usersDictionary = json[kUsers] as? [String: AnyObject] {
-            usersIDs = Array(usersDictionary.keys)
+            userIDs = Array(usersDictionary.keys)
         }
     }
 }

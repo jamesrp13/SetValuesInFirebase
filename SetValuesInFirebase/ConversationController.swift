@@ -24,4 +24,24 @@ class ConversationController {
         })
     }
     
+    static func createConversation(name: String, users: [User], completion: (conversation: Conversation?) -> Void) {
+        var conversation = Conversation(name: name, users: users)
+        conversation.save()
+        if let conversationID = conversation.identifier {
+            for var user in users {
+                user.conversationIDs.append(conversationID)
+                user.save()
+            }
+        }
+        completion(conversation: conversation)
+    }
+    
+    static func createMessage(text: String, sender: User, conversation: Conversation, completion: (message: Message?) -> Void) {
+        guard let senderID = sender.identifier,
+            conversationID = conversation.identifier else {completion(message: nil); return}
+        var message = Message(text: text, senderID: senderID, conversationID: conversationID)
+        message.save()
+        completion(message: message)
+    }
+    
 }

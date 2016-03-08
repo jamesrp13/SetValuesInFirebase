@@ -17,13 +17,11 @@ class User: FirebaseType {
     var conversations: [Conversation] = []
     var identifier: String?
     var endpoint: String {
-        // TODO: - set endpoint
-        return ""
+        return "users"
     }
     
     var jsonValue: [String: AnyObject] {
-        // TODO: - create jsonValue that will be stored in firebase
-        return [:]
+        return [kUsername:username, kConversations:conversationIDs]
     }
     
     init(username: String) {

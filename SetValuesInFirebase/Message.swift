@@ -21,13 +21,11 @@ class Message: FirebaseType {
     
     var identifier: String?
     var endpoint: String {
-        // TODO: - return endpoint for conversations
-        return ""
+        return "messages"
     }
     
     var jsonValue: [String: AnyObject] {
-        //TODO: - create dictionary that will be stored in firebase
-        return [:]
+        return [kConversation: conversationID, kText: text, kSender: senderID]
     }
     
     init(text: String, senderID: String, conversationID: String) {
